@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load blog_tags %}
+
+{% block head_title %}
+    <title id="index-page">首页-雪释潮涯的博客</title>
+{% endblock head_title %}
+
+{% block head-content %}
+    <h3 class="header-title">人生苦短</h3>
+    <div class="header-underline"></div>
+    <p class="header-subtitle header-subtitle-homepage">好好学习~~，天天向上~~。</p>
+{% endblock head-content %}
+
+{% block main %}
+    <div class="col-md-9 col-xs-12 main">
+        <div class="content-container-md">
+            <section class="post-list ">
+                {% for post in post_list %}
+                    <article>
+                        <div class="flex-left ">
+                            <div class="">
+
+                                <div class="post-main-info">
+                                    <a class="title" href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                                    <div class="text-small excerpt">
+                                        {{ post.excerpt|safe }}
+                                    </div>
+
+                                    <footer class="text-small post-footer-meta">
+                                        <span class="pub-date"><time
+                                            title="{{ post.created_time }}"><i class="icon icon-clock" aria-hidden="true"></i> {{ post.created_time|timesince|y_m_d_h }}前</time>
+                                        </span>
+                                        <span class="category">
+                                            <a href="{% url 'blog:category' post.category.pk %}"><i class="icon icon-category" aria-hidden="true"></i> {{ post.category.name }}</a>
+                                        </span>
+
+                                        <span class="views">
+                                            <a class="text-muted" href="{{ post.get_absolute_url }}">
+                                                <i class="fa fa-eye" aria-hidden="true"></i> {{ post.views }}
+                                            </a>
+                                        </span>
+                                        <span class="comments">
+                                        <a class="text-muted" href="{{ post.get_absolute_url }}#comment-area">
+                                            <i class="fa fa-comments-o" aria-hidden="true"></i>
+                                            <span id="sourceId::post-{{ post.pk }}" class="cy_cmt_count"></span>
+                                            <script id="cy_cmt_num"
+                                                    src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cytaHHXqn"></script>
+                                        </a>
+
+                                </span>
+
+                                        <!--span class="tags">
+                                    {% for tag in post.tags.all %}
+                                        {% if forloop.first %}
+                                            <a class="text-muted" href="{% url 'blog:tag' tag.pk %}">
+                                                <i class="fa fa-tags" aria-hidden="true"></i>
+                                            </a>
+                                        {% endif %}
+                                        <a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}</a>
+                                        {% if not forloop.last %},{% endif %}
+                                    {% endfor %}
+                                </span-->
+                                    </footer>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </article>
+                {% empty %}
+                    <div class="no-post">暂时还没有发布的文章!</div>>
+                {% endfor %}
+            </section>
+
+            <nav class="pagination-bar " style="opacity: 1;display: block;">
+
+
+                        {% if page_obj.has_previous %}
+                            <a class="navigate prev " rel="prev" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i></a>
+                        {% endif %}
+
+                        {% if is_paginated %}
+                                <!--div class="pagination"-->
+                                {% if first %}
+
+                                        <a class="page-number" href="?page=1">1</a>
+
+                                {% endif %}
+                                {% if left %}
+                                    {% if left_has_more %}
+
+                                            <span class="space">...</span>
+
+                                    {% endif %}
+                                    {% for i in left %}
+
+                                            <a class="page-number" href="?page={{ i }}">{{ i }}</a>
+
+                                    {% endfor %}
+                                {% endif %}
+                                    <span class="page-number current">{{ page_obj.number }}</span>
+
+
+                                {% if right %}
+                                    {% for i in right %}
+
+                                            <a class="page-number" href="?page={{ i }}">{{ i }}</a>
+
+                                    {% endfor %}
+                                    {% if right_has_more %}
+
+                                            <span class="space">...</span>
+
+                                    {% endif %}
+                                {% endif %}
+                                {% if last %}
+
+                                        <a class="page-number" href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a>
+
+                                {% endif %}
+                                <!--/div-->
+                            {% endif %}
+
+                        {% if page_obj.has_next %}
+                            <a class="navigate next " rel="next" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a>
+                        {% endif %}
+            </nav>
+
+        </div>
+    </div>
+{% endblock main %}
+
+{% block aside %}
+
+    <div class="col-md-3 col-xs-12 side">
+        <div class="side-container">
+            {% block toc %}
+            {% endblock toc %}
+            <div class="widget">
+                <div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div>
+                <h3 class="title">最新文章</h3>
+                {% get_recent_posts as recent_post_list %}
+                <ul class="list-unstyle">
+                    {% for post in recent_post_list %}
+                        <li>
+                            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                        </li>
+                    {% empty %}
+                        暂无文章！
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="widget widget-archives">
+                <h3 class="title">归档</h3>
+                {% archives as archives_list %}
+                {% regroup archives_list by year_cnt as year_list %}
+                <ul class="topnav list-unstyle">
+                    {% for year in year_list %}
+                        <li><a href="#">{{ year.grouper }}</a>
+                            <ul class="list-unstyle">
+                                {% for archive_date in year.list %}
+                                    <li>
+                                        <a href="{% url 'blog:archives' archive_date.year archive_date.month %}">{{ archive_date.year }}年 {{ archive_date.month }}月
+                                            ({{ archive_date.number }})
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+
+            </div>
+
+            <div class="widget widget-category">
+                <h3 class="title">分类</h3>
+                {% get_categories as category_list %}
+                <ul class="list-unstyle">
+                    {% for category in category_list %}
+                        <li>
+                            <a href="{% url 'blog:category' category.pk %}">{{ category.name }} <span
+                                    class="post-count">({{ category.num_posts }})</span></a>
+                        </li>
+                    {% empty %}
+                        暂无文章！
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="widget widget-tag-cloud">
+                <h3 class="title">标签云</h3>
+                {% get_tags as tag_list %}
+                <ul class="tagcloud">
+                    {% for tag in tag_list %}
+                        <li class="tag-{{ tag.num_posts|tag_i }}">
+                            <a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }} </a>
+                        </li>
+                    {% empty %}
+                        暂无文章！
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock aside %}
+
+
+
+

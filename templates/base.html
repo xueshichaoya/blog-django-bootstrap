@@ -1,0 +1,179 @@
+{% load staticfiles %}
+{% load blog_tags %}
+
+<!DOCTYPE html>
+
+<html lang="zh-cmn-hans">
+<head>
+    <link rel="icon" href="{% static 'blog/img/ico/title4.ico' %}">
+    {% block head_title %}
+    {% endblock head_title %}
+    <!-- meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="雪释潮涯的BLOG">
+    <meta name="keywords" content="">
+    <!-- css -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/highlights/python.css' %}">
+
+    <!-- js -->
+    <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'blog/js/blog.js' %}"></script>
+    <script src="{% static 'blog/js/index_archives.js' %}"></script>
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/107511/19607/59e4aba0f629d807e473f6bf.css' rel='stylesheet' type='text/css' />
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/107511/46467/59e4ad1ff629d807e473f6c1.css' rel='stylesheet' type='text/css' />
+
+    <!-- fonts -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.cat.net/css?family=Adamina"/>
+    <link rel="stylesheet" type="text/css" href="https://fonts.cat.net/css?family=Quattrocento"/>
+
+
+    <!-- Google push -->
+    <!-- baidu push -->
+    <script>
+        (function () {
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+    <!-- 360 push -->
+    <script>(function () {
+        var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?d6464311a6aae841044e53e6bbb94cda" : "https://jspassport.ssl.qhimg.com/11.0.1.js?d6464311a6aae841044e53e6bbb94cda";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+    })();
+    </script>
+
+</head>
+
+<body data-spy="scroll" data-target="#myScrollspy" class="style-light">
+<!-- Header -->
+<div class="header-container" id="top"
+     style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),url('/static/blog/img/theme/{% now "d" %}.jpg'); background-position: center; background-size: cover;">
+    <!-- Static navbar -->
+    <div class="container">
+        <div class="header-nav">
+            <div class="header-logo">
+                <a class="pull-left " href="{% url 'blog:index' %}">
+                    <div class="title"><span class="cssdca6d89931a3f7">雪释潮涯~</span></div>
+                </a>
+            </div>
+
+            <div class="nav pull-right  ">
+                <a href="{% url 'blog:index' %}">首 页</a>
+                <a href="{% url 'blog:category_index' %}">分 类</a>
+                <a href="{% url 'blog:tag_index' %}">标 签</a>
+                <a href="{% url 'blog:about' %}">关于</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Static navbar -->
+
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="header-content">
+                    {% block head-content %}
+                    {% endblock head-content %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Header -->
+
+</div>
+<!-- Header -->
+
+
+<!-- Content -->
+<div class="body-container">
+    <div class="container content archive ">
+
+        <div class="row">
+
+            {% block main %}
+            {% endblock main %}
+
+            {% block aside %}
+            {% endblock aside %}
+
+        </div>
+
+    </div>
+
+
+</div>
+<!-- Content -->
+
+<!-- Footer -->
+<footer id="blog-footer">
+    <div class="footer gradient-2">
+        <div class="container footer-container ">
+            <div class="row">
+                <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    <div class="footer-title">Sitemap</div>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'blog:category_index' %}">分类</a></li>
+                        <li><a href="{% url 'blog:tag_index' %}">标签</a></li>
+                        <li><a href="{% url 'blog:about' %}">关于</a></li>
+                        <li><a href="{% url 'rss' %}" type="application/rss+xml"
+                               rel="alternate">RSS</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    <div class="footer-title">Social</div>
+                    <ul class="list-unstyled">
+                        <li><a href="https://github.com/xueshichaoya" target="_blank">GitHub</a></li>
+                        <li><a href="https://www.zhihu.com/people/jiang-long-46" target="_blank">知乎</a></li>
+                        <li><a href="http://music.163.com/#/user/home?id=37169521" target="_blank">网易云音乐</a></li>
+                        <li><a href="http://weibo.com/xueshichaoya" target="_blank">微博</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    <div class="footer-title">Links</div>
+                    <ul class="list-unstyled">
+                        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+                        <li><a href="http://www.jianshu.com/" target="_blank">简书</a></li>
+
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                    <ul class="list-unstyled">
+                        <li>
+                            <small>© 2017 雪释潮涯的博客</small>
+                        </li>
+                        <li>
+                            <small>&nbsp;粤ICP备 17097911号-2</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div class="back-top-# hidden-xs">
+    <a id="back_to_top" href="#top" title="返回顶部" class="back_to_top"><span>△</span></a>
+</div>
+<!-- Footer -->
+
+
+</body>
+<script src="{% static '/blog/js/post_title_list.js' %}"></script>
+</html>

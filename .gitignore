@@ -1,0 +1,14 @@
+
+*.pyc
+
+\.idea/
+
+\.vscode/
+
+docs/
+
+venv/
+
+\.editorconfig
+
+db\.sqlite3

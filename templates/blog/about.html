@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load blog_tags %}
+
+{% block head_title %}
+    <title id="about-page">关于-雪释潮涯博客</title>
+{% endblock head_title %}
+
+{% block head-content %}
+    <h3 class="header-title">人生苦短</h3>
+    <div class="header-underline"></div>
+    <p class="header-subtitle header-subtitle-homepage">好好学习~~，天天向上~~。</p>
+{% endblock head-content %}
+
+{% block main %}
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="content-container-xs">
+
+            <ul>
+
+                <li><h3>关于作者</h3></li>
+                <p>我叫蒋龙，工作3年，主要涉及金融行业业务系统开发，技术背景包括:
+                    Python、DB2、Delphi、Java、Unix/Linux、shell。平时也喜欢了解一些新的技术，博客网站就是没事折腾的~</p>
+
+                <li><h3>关于博客</h3></li>
+                <p>博客部署在 <a
+                        href="https://www.aliyun.com/product/ecs?spm=5176.8142029.388261.198.ti6ZHz">阿里云ECS服务器</a>上，方便学习选择了阿里云服务器。博客采用
+                    Django+Bootstrap+Nginx 搭建，第一次搭建效果有点简陋~。博客准备长期运营下去，以前写笔记都是用word，以后会更多记录在博客。</p>
+
+                <li><h3>联系作者</h3></li>
+                <ul class="list-unstyle">
+                    <li>电子邮箱：xueshichaoya@163.com</li>
+                    <li>微信号： xueshichaoya</li>
+                </ul>
+
+            </ul>
+
+        </div>
+
+    </div>
+{% endblock main %}
+

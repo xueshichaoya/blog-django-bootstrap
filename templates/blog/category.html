@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load blog_tags %}
+
+{% block head_title %}
+    <title id="category-page">分类-雪释潮涯博客</title>
+{% endblock head_title %}
+
+{% block head-content %}
+    <h3 class="header-title">人生苦短</h3>
+    <div class="header-underline"></div>
+    <p class="header-subtitle header-subtitle-homepage">好好学习~~，天天向上~~。</p>
+{% endblock head-content %}
+
+{% block main %}
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="content-container-xs">
+            <section class="post-list ">
+                {% regroup post_list by category.name as category_list %}
+                <ul>
+                    {% for category in category_list %}
+                        <li><h3>{{ category.grouper }}</h3></li>
+
+                        <dl class="dl-horizontal">
+                            {% for post in category.list %}
+                                <dt>{{ post.modified_time|date:"Y-m-d" }} </dt>
+                                <dd><a class="title" href="{{ post.get_absolute_url }}">{{ post.title }}</a></dd>
+                            {% endfor %}
+                        </dl>
+
+                    {% endfor %}
+                </ul>
+
+
+            </section>
+
+            <aside class="pagination-bar ">
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        {% if page_obj.has_previous %}
+                            <a class="navigate pull-left" href="?page={{ page_obj.previous_page_number }}">
+                                &lt;&lt;上一页</a>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-8 col-sm-8 col-xs-8 pull-center">
+                        <ul class="list-unstyle-inline pagination-bar-mid">
+                            {% if is_paginated %}
+                                <!--div class="pagination"-->
+                                {% if first %}
+                                    <li>
+                                        <a href="?page=1">1</a>
+                                    </li>
+                                {% endif %}
+                                {% if left %}
+                                    {% if left_has_more %}
+                                        <li>
+                                            <span>...</span>
+                                        </li>
+                                    {% endif %}
+                                    {% for i in left %}
+                                        <li>
+                                            <a href="?page={{ i }}">{{ i }}</a>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                                <li>
+                                    <a href="?page={{ page_obj.number }}" style="color: red">{{ page_obj.number }}</a>
+                                </li>
+                                {% if right %}
+                                    {% for i in right %}
+                                        <li>
+                                            <a href="?page={{ i }}">{{ i }}</a>
+                                        </li>
+                                    {% endfor %}
+                                    {% if right_has_more %}
+                                        <li>
+                                            <span>...</span>
+                                        </li>
+                                    {% endif %}
+                                {% endif %}
+                                {% if last %}
+                                    <li>
+                                        <a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a>
+                                    <li>
+                                {% endif %}
+                                <!--/div-->
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        {% if page_obj.has_next %}
+                            <a class="navigate pull-right" href="?page={{ page_obj.next_page_number }}">下一页 &gt;&gt;</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+{% endblock main %}
+
+
+
+

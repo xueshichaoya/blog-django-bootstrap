@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load blog_tags %}
+{% block head_title %}
+    <title id="tag-page">标签-雪释潮涯博客</title>
+{% endblock head_title %}
+
+{% block head-content %}
+    <h3 class="header-title">人生苦短</h3>
+    <div class="header-underline"></div>
+    <p class="header-subtitle header-subtitle-homepage">好好学习~~，天天向上~~。</p>
+{% endblock head-content %}
+
+{% block main %}
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="content-container-xs">
+
+            <section class=" ">
+
+                <ul>
+
+                    <li><h3>所有标签</h3></li>
+
+                    <dl class="dl-horizontal">
+                        {% get_tags as tag_list %}
+                        <ul class="tagcloud">
+                            {% for tag in tag_list %}
+                                <li class="tag-{{ tag.num_posts|tag_i }}">
+                                    <a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </dl>
+
+
+                </ul>
+
+
+            </section>
+
+        </div>
+
+    </div>
+{% endblock main %}
+
