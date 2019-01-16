@@ -10,7 +10,7 @@
 1. 克隆项目
 
     ```git
-    $ git clone https://github.com/xueshichaoya/hexo-theme-dandelion.git　themes/dandelion
+    $ git clone https://github.com/xueshichaoya/blog-django-bootstrap.git　blog
     ```
 
 2. 执行(python3)
